@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>HTML5 Test Page</title>
-    <script src="/dist/reactize.min.js"></script>
+    <script src="/dist/reactize.js"></script>
     <script type="text/javascript">
         window.onload = function(){ 
             Reactize.initialize(document.body);
             Reactize.applyDiff(document.body, document.body);
-            Reactize.applyDiffFromHTMLString(document.body.innerHTML, document.body);
+            Reactize.applyDiffFromHTMLString(document.body.outerHTML, document.body);
         }
     </script>
 </head>
