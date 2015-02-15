@@ -7662,13 +7662,11 @@ var Reactize = {
 };
 
 Reactize.initialize = function(element) {
-  debugger;
   var vTree = convertHTML(element.outerHTML.trim());
   vTrees[element.id] = vTree;
 };
 
 Reactize.applyDiff = function(replacementElement, targetElement) {
-  debugger;
   var replacementVtree = convertHTML(replacementElement.outerHTML.trim());
   var patches = diff(vTrees[targetElement.id], replacementVtree);
   targetElement = patch(targetElement, patches);
@@ -7676,7 +7674,6 @@ Reactize.applyDiff = function(replacementElement, targetElement) {
 };
 
 Reactize.applyDiffFromHTMLString = function(htmlString, targetElement) {
-    debugger;
     var replacementVtree = convertHTML(htmlString.trim());
     var patches = diff(vTrees[targetElement.id], replacementVtree);
     targetElement = patch(targetElement, patches);
