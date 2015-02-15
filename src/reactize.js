@@ -1,6 +1,5 @@
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
-var createElement = require('virtual-dom/create-element');
 
 var VNode = require('virtual-dom/vnode/vnode');
 var VText = require('virtual-dom/vnode/vtext');
@@ -16,12 +15,12 @@ var Reactize = {
 };
 
 Reactize.initialize = function(element) {
-  var vTree = convertHTML(element.innerHTML.trim());
+  var vTree = convertHTML(element.outerHTML.trim());
   vTrees[element.id] = vTree;
 };
 
 Reactize.applyDiff = function(replacementElement, targetElement) {
-  var replacementVtree = convertHTML(replacementElement.innerHTML.trim());
+  var replacementVtree = convertHTML(replacementElement.outerHTML.trim());
   var patches = diff(vTrees[targetElement.id], replacementVtree);
   targetElement = patch(targetElement, patches);
   vTrees[targetElement.id] = replacementVtree;
@@ -29,8 +28,9 @@ Reactize.applyDiff = function(replacementElement, targetElement) {
 
 Reactize.applyDiffFromHTMLString = function(htmlString, targetElement) {
     var replacementVtree = convertHTML(htmlString.trim());
-    var replacementElement = createElement(replacementVtree);
-    Reactize.applyDiff(replacementElement, targetElement);
+    var patches = diff(vTrees[targetElement.id], replacementVtree);
+    targetElement = patch(targetElement, patches);
+    vTrees[targetElement.id] = replacementVtree;
   };
 
 module.exports = global.Reactize = Reactize;
