@@ -15,12 +15,12 @@ var Reactize = {
 };
 
 Reactize.initialize = function(element) {
-  var vTree = convertHTML(element.outerHTML.trim());
+  var vTree = convertHTML(element.innerHTML.trim());
   vTrees[element.id] = vTree;
 };
 
 Reactize.applyDiff = function(replacementElement, targetElement) {
-  var replacementVtree = convertHTML(replacementElement.outerHTML.trim());
+  var replacementVtree = convertHTML(replacementElement.innerHTML.trim());
   var patches = diff(vTrees[targetElement.id], replacementVtree);
   targetElement = patch(targetElement, patches);
   vTrees[targetElement.id] = replacementVtree;
